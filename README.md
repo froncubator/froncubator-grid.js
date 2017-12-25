@@ -5,8 +5,8 @@ Cascading grid layout library - smooth and infinite
 # Installation
 
 ```html
-<script src="../viking-grid.js"></script>
-<link rel="stylesheet" type="text/css" href="../viking-grid.css">
+<script src="../fc-grid.js"></script>
+<link rel="stylesheet" type="text/css" href="../fc-grid.css">
 ```
 
 # Examples
@@ -14,19 +14,19 @@ ___
 # Initialize
 ```javascript
 let parent = document.querySelector('.parent')
-let vikingGrid = new VikingGrid( parent)
+let grid = new fcGrid( parent)
 ```
 # Add in grid
 
 ```javascript
 let template = `<div><p>Test description</p></div>`
-vikingGrid.fillingGrid(template)
+grid.fillingGrid(template)
 ```
 
 # Destroy grid
 
 ```javascript
-vikingGrid.destroyGrid()
+grid.destroyGrid()
 ```
 
 ___

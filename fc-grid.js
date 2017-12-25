@@ -1,7 +1,7 @@
 
-console.log('viking grid run!')
+console.log('grid run!')
 
-let VikingGrid = function(parent, settings) {
+let fcGrid = function(parent, settings) {
 	if (typeof(settings) != "object") settings = {}
 	if (!settings.min) settings.min = 2
 	if (!settings.max) settings.max = 6
