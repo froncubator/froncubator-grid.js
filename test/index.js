@@ -1,6 +1,6 @@
 window.onload = function() {
 	let parent = document.querySelector('.parent')
-	let vikingGrid = new VikingGrid( parent, {})
+	let grid = new fcGrid( parent, {})
 	let template = []
 
 	let img = ["http://static1.cooklook.ru/images/1e/da/74/2b/t_1eda742b3bfc85bf8af0adb4fdaeac2ade86d24cbb6d162d5f6abf4efe8c5d4f.jpg", 
@@ -24,10 +24,10 @@ window.onload = function() {
 		template.push(tmp)
 	}
 
-	vikingGrid.fillingGrid(template)
+	grid.fillingGrid(template)
 
 	// setTimeout(() => {
-	// 	vikingGrid.fillingGrid(template)
-	// // 	vikingGrid.destroyGrid()
+	// 	grid.fillingGrid(template)
+	// // 	grid.destroyGrid()
 	// }, 5000)
 }
