@@ -25,8 +25,8 @@ window.onload = function() {
 
 	grid.fillingGrid(template)
 
-	setTimeout(() => {
-		grid.fillingGrid(template)
-		// grid.destroyGrid()
-	}, 5000)
+	// setTimeout(() => {
+	// 	grid.fillingGrid(template)
+	// 	// grid.destroyGrid()
+	// }, 5000)
 }

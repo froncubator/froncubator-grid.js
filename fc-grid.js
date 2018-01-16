@@ -67,6 +67,10 @@ let fcGrid = function(parent, settings) {
 					}
 				}
 			}
+			let allSpinners = document.querySelectorAll('.vg-loader')
+			for (let i of allSpinners) {
+				i.setAttribute('class', 'opacity-grid vg-loader')
+			}
 		}
 	}
 
@@ -112,8 +116,10 @@ let fcGrid = function(parent, settings) {
 					let img = new Image()
 					img.onload = function(e) {
 						let elem = document.createElement('div')
+						let spinner = document.createElement('div')
 						elem.setAttribute('class', 'grid-item')
 						elem.insertAdjacentHTML('beforeend', obj.content)
+						elem.insertAdjacentHTML('beforeend', `<div class="vg-loader"><div class="loader-grid"></div></div>`)
 						let result = currentCol.appendChild(elem)
 						result.setAttribute('ht', result.offsetHeight)
 						self._allImageLoaded(allImageArr, imgs, self.colCount)
