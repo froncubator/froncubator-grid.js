@@ -12,7 +12,6 @@ window.onload = function() {
 		"http://static1.cooklook.ru/images/7f/77/a0/cd/t_7f77a0cda15b7a9a08abcd1e0aa1d2ff9b34e2e54d1800e4adae3f8c0d78905d.jpg",
 		"http://static1.cooklook.ru/images/db/ea/8b/4d/t_dbea8b4df744c011f86978aaa0a857eeeb2949624a8c9add8810b8122f167f16.jpg",
 		"http://static1.cooklook.ru/images/36/5c/ac/62/t_365cac62844d1deb913d274cc22c78875d9b0f781440badc441d14e0758384ff.jpg",
-		"http://static1.cooklook.ru/images/d6/67/e8/1e/t_d667e81e14e7ce35f125cb6dedcb25a758174572dff7f4daa05e30171ff41f85.jpg",
 		"http://static1.cooklook.ru/images/ea/a1/a4/4e/t_eaa1a44e3c95e741f15361bd742a27a3f31ce890dda82bd102da7d60e4b50716.jpg",
 		"http://static1.cooklook.ru/images/57/9d/1d/dc/t_579d1ddc8b8e62f60717dce65e9fd1836bb14ef7e910925afc31051f19a22dd1.jpg",
 		"http://static1.cooklook.ru/images/6f/a1/88/0e/t_6fa1880ee41efa91fe7a3bc963f17a276693d9631b9c7989d82501b101f7d8e5.jpg",
@@ -26,8 +25,8 @@ window.onload = function() {
 
 	grid.fillingGrid(template)
 
-	// setTimeout(() => {
-	// 	grid.fillingGrid(template)
-	// // 	grid.destroyGrid()
-	// }, 5000)
+	setTimeout(() => {
+		grid.fillingGrid(template)
+		// grid.destroyGrid()
+	}, 5000)
 }

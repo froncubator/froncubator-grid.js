@@ -1,6 +1,6 @@
 
 console.log('grid run!')
-
+ 
 let fcGrid = function(parent, settings) {
 	if (typeof(settings) != "object") settings = {}
 	if (!settings.min) settings.min = 2
@@ -19,21 +19,27 @@ let fcGrid = function(parent, settings) {
 		this.colCount = columnSettings.colCount
 
         //Create colls
-		parent.insertAdjacentHTML('beforeend', '<div class="viking-grid"></div>')
+		parent.insertAdjacentHTML('beforeend', '<div class="viking-grid"></div><div class="temp-grid"></div>')
 		let vg = document.querySelector('.viking-grid')
+		let tg = document.querySelector('.temp-grid')
 		for (let i=0; i<this.colCount; i++) {
-            vg.insertAdjacentHTML('beforeend', this._createCol(i, widthElem))
+            vg.insertAdjacentHTML('beforeend', this._createCol(i, widthElem, 'vg'))
+            tg.insertAdjacentHTML('beforeend', this._createCol(i, widthElem, 'tg'))
         }
 	}
 
 	//tamplate for columns
-	this._createCol = function(orderNum, widthElm) {
-		return '<div class="col-elem" style="width:'+widthElm+'" id="col-'+orderNum+'" h="0"></div>'
+	this._createCol = function(orderNum, widthElm, settings) {
+		if (settings == 'vg') return '<div class="col-elem" style="width:'+widthElm+'" id="col-'+orderNum+'" h="0"></div>'
+		if (settings == 'tg') return '<div class="col-elem-temp" style="width:'+widthElm+'" id="col-temp-'+orderNum+'" h="0"></div>'
+		
 	}
 
 	this.destroyGrid = function() {
 		let elems = document.querySelector('.viking-grid')
+		let elem = document.querySelector('.temp-grid')
 		elems.parentNode.removeChild(elems)
+		elem.parentNode.removeChild(elem)
 		this._creatGrid()
 	}
 
@@ -42,15 +48,34 @@ let fcGrid = function(parent, settings) {
 		currentCol.insertAdjacentHTML('beforeend', `<div class="grid-item">${content}</div>`)
 	}
 
-
+	this._allImageLoaded = function(allImageArr, imgs, colCount) {
+		allImageArr.push(1)
+		if (allImageArr.length == imgs.length) {
+			let minCol = 0
+			let elems = document.querySelectorAll('.temp-grid div[ht]')
+			for (let elem of elems) {
+				let min = 99999999
+				let currentCol = document.querySelector('#col-' + minCol)
+				let newSize = currentCol.getAttribute('h') *1 + elem.attributes.ht.value*1
+				currentCol.setAttribute('h', newSize)
+				currentCol.appendChild(elem)
+				for (let c=0; c<colCount; c++) {
+					let hAttr = document.querySelector('#col-' + c).getAttribute('h') * 1
+					if (min >= hAttr) {
+						min = hAttr
+						minCol = c
+					}
+				}
+			}
+		}
+	}
 
 	//grid filling
 	this.fillingGrid = function(contents) {
-		let minHeight = 0
-		let minCol = 0
 		let self = this
+		let imgs = []
+		let allImageArr = []
 		if (contents) this.content = this.content.concat(contents)
-			// console.log('addContent', this.content)
 		if (this.content.length > 0) {
 			let index = 0
 	        for (let i=0; i<this.content.length; i++) {
@@ -62,32 +87,40 @@ let fcGrid = function(parent, settings) {
 	            }
 
 				if (content.indexOf('img src=') != -1) {
+					let obj = {
+						content: '',
+						src: ''
+					}
 					var tmp = document.createElement('div')
 					tmp.innerHTML = content
 					var src = tmp.querySelector('img').getAttribute('src')
-
-					let img = new Image()
-					img.onload = function(e) {
-						
-						let min = 99999999
-						let currentCol = document.querySelector('#col-' + minCol)
-						let newSize = currentCol.getAttribute('h') *1 + img.width
-						currentCol.setAttribute('h', newSize)
-						currentCol.insertAdjacentHTML('beforeend', `<div class="grid-item">${content}</div>`)
-
-						for (let c=0; c<self.colCount; c++) {
-							let hAttr = document.querySelector('#col-' + c).getAttribute('h') * 1
-							if (min >= hAttr) {
-								min = hAttr
-								minCol = c
-							}
-						}
-					}
-					img.src = src
+					obj.content = content
+					obj.src = src
+					imgs.push(obj)
 				} else {
 					self._loadBox(index, content)
 				}
-	            index++    
+	            index++
+	      	}
+	      	if (imgs.length > 0) {
+	      		let index = 0
+				for (let obj of imgs) {
+		            if (index % this.colCount == 0) {
+		                index = 0
+		            }
+		            let currentCol = document.querySelector('#col-temp-' + index)
+					let img = new Image()
+					img.onload = function(e) {
+						let elem = document.createElement('div')
+						elem.setAttribute('class', 'grid-item')
+						elem.insertAdjacentHTML('beforeend', obj.content)
+						let result = currentCol.appendChild(elem)
+						result.setAttribute('ht', result.offsetHeight)
+						self._allImageLoaded(allImageArr, imgs, self.colCount)
+					}
+					img.src = obj.src
+					index++
+				}	      		
 	      	}
 		}
 	}
