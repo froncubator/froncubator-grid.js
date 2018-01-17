@@ -3,30 +3,44 @@ window.onload = function() {
 	let grid = new fcGrid( parent, {})
 	let template = []
 
-	let img = ["http://static1.cooklook.ru/images/1e/da/74/2b/t_1eda742b3bfc85bf8af0adb4fdaeac2ade86d24cbb6d162d5f6abf4efe8c5d4f.jpg", 
-		"http://static1.cooklook.ru/images/ec/3a/e0/78/t_ec3ae07862a12a2e8f43f09af7f7733c2dfe619052e2a0f2fa3b109b154ad1dd.jpg",
-		"http://static1.cooklook.ru/images/aa/e1/5a/c0/t_aae15ac0c50d41a881e810e154ff811481207f92a33674e2ddc53f7c766a6bff.jpg",
+	let img = ["http://static1.cooklook.ru/images/c9/c3/87/fb/t_c9c387fbb3a8e42bc3892da584064714c6113da5cbd1ea204c6acd6d38507c04.jpg", 
+		"http://static1.cooklook.ru/images/1a/38/f5/89/t_1a38f589c44cafd6773c0f6429513c42b6fe4a7d3d27267c41a3e49b9c5de717.jpg",
+		"http://static1.cooklook.ru/images/2a/91/40/fb/t_2a9140fb60d7eca5fb5582710d6f387b811b38662e00f908b23b93042b0abe49.jpg",
 		"http://static1.cooklook.ru/images/68/5c/76/2a/t_685c762afcd9bdb80851568870d1a573c5575837c0d129611f10ccdf1d9a00b0.jpg",
-		"http://static1.cooklook.ru/images/88/68/e8/44/t_8868e84422010da241db6ef7ed43e34c40ab04e4a7da17ee00ad6de9f5810f0a.jpg",
-		"http://static1.cooklook.ru/images/eb/a6/71/a2/t_eba671a2860b40d9fe3fd5fa5661b20065f48004916701800d9ec87417fc7a0e.jpg",
-		"http://static1.cooklook.ru/images/7f/77/a0/cd/t_7f77a0cda15b7a9a08abcd1e0aa1d2ff9b34e2e54d1800e4adae3f8c0d78905d.jpg",
+		"http://static1.cooklook.ru/images/b9/fd/b6/2e/t_b9fdb62ee5a8c473b701e009dd9c2305bb0d6c4579c7996b68cac59d35728af5.jpg",
+		"http://static1.cooklook.ru/images/29/c8/fd/01/t_29c8fd016e3ad5619762abeafe2536372f93faa14a55885cfa81c0f7ec3478e9.jpg",
+		"http://static1.cooklook.ru/images/66/59/cd/b0/t_6659cdb0d6eae4ce93177dd2c948a94014370ee0b7070229b5ee23b0ee332bfa.jpg",
 		"http://static1.cooklook.ru/images/db/ea/8b/4d/t_dbea8b4df744c011f86978aaa0a857eeeb2949624a8c9add8810b8122f167f16.jpg",
-		"http://static1.cooklook.ru/images/36/5c/ac/62/t_365cac62844d1deb913d274cc22c78875d9b0f781440badc441d14e0758384ff.jpg",
-		"http://static1.cooklook.ru/images/ea/a1/a4/4e/t_eaa1a44e3c95e741f15361bd742a27a3f31ce890dda82bd102da7d60e4b50716.jpg",
-		"http://static1.cooklook.ru/images/57/9d/1d/dc/t_579d1ddc8b8e62f60717dce65e9fd1836bb14ef7e910925afc31051f19a22dd1.jpg",
-		"http://static1.cooklook.ru/images/6f/a1/88/0e/t_6fa1880ee41efa91fe7a3bc963f17a276693d9631b9c7989d82501b101f7d8e5.jpg",
-		"http://static1.cooklook.ru/images/2a/65/aa/a0/t_2a65aaa0fcc27238e5e623e8a28f44d56393d2126421fa2dedcb4656635d61f4.jpg"
+		"http://static1.cooklook.ru/images/1a/8e/40/17/t_1a8e4017696dce5a882fcc04def391d513d478375209b3506b198c4e64547599.jpg",
+		"http://static1.cooklook.ru/images/fc/5a/bd/34/t_fc5abd34439629ce0b0c18cc026829e3d291ef19d53dbea091a0761c5a2f4bd0.jpg",
+		"http://static1.cooklook.ru/images/b7/9d/09/06/t_b79d0906e470ec42edb66bd8453a4d8351ad3990e64d6f40d65fa2f9dcf22601.jpg",
+		"http://static1.cooklook.ru/images/9c/19/9b/48/t_9c199b4865920d7c308a45ca70bd5e36f613306a38ca767e1073f9355a07448d.jpg",
+		"http://static1.cooklook.ru/images/95/cd/de/2a/t_95cdde2ae14b00b37c7b9b8aeaac08ced572826f0a7389d4576fa0f0baed5604.jpg",
+		"http://static1.cooklook.ru/images/f9/f0/8e/ee/t_f9f08eee3a1d9993ca65e112f5681dfae6c6ab7e5160ffa5ae99f4e828b7868c.jpg"
+
 	]
+
+	let text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
 	for (let i of img) {
 		let tmp = `<div><img src=${i}><br><p>Test description</p></div>`
 		template.push(tmp)
 	}
 
+	for (let i=0; i<5; i++) {
+		let tmp = `<p>${text}</p>`
+		template.push(tmp)
+	}
+
 	grid.fillingGrid(template)
+
+	// setTimeout(() => {
+	// 	// grid.fillingGrid(template)
+	// 	grid.destroyGrid()
+	// }, 5000)
 
 	// setTimeout(() => {
 	// 	grid.fillingGrid(template)
 	// 	// grid.destroyGrid()
-	// }, 5000)
+	// }, 7000)
 }

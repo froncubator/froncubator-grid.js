@@ -35,22 +35,31 @@ let fcGrid = function(parent, settings) {
 		
 	}
 
-	this.destroyGrid = function() {
+	this.destroyGrid = function(settings='user') {
 		let elems = document.querySelector('.viking-grid')
 		let elem = document.querySelector('.temp-grid')
 		elems.parentNode.removeChild(elems)
 		elem.parentNode.removeChild(elem)
-		this._creatGrid()
+		if(settings == 'user') this._creatGrid()
 	}
 
 	this._loadBox = function(index, content) {
-		let currentCol = document.querySelector('#col-' + index)
-		currentCol.insertAdjacentHTML('beforeend', `<div class="grid-item">${content}</div>`)
+		let currentCol = document.querySelector('#col-temp-' + index)
+		let elem = document.createElement('div')
+		let spinner = document.createElement('div')
+		elem.setAttribute('class', 'grid-item')
+		elem.insertAdjacentHTML('beforeend', content)
+		elem.insertAdjacentHTML('beforeend', `<div class="vg-loader"><div class="loader-grid"></div></div>`)
+		let result = currentCol.appendChild(elem)
+		result.setAttribute('ht', result.offsetHeight)
 	}
 
-	this._allImageLoaded = function(allImageArr, imgs, colCount) {
-		allImageArr.push(1)
-		if (allImageArr.length == imgs.length) {
+	this._allImageLoaded = function(allImageArr, allContent, imgs, contents, colCount, check) {
+		if (check == 'img') {
+			allImageArr.push(1)
+		}
+		allContent.push(1)
+		if (allImageArr.length == imgs.length && allContent.length == contents.length) {
 			let minCol = 0
 			let elems = document.querySelectorAll('.temp-grid div[ht]')
 			for (let elem of elems) {
@@ -79,54 +88,48 @@ let fcGrid = function(parent, settings) {
 		let self = this
 		let imgs = []
 		let allImageArr = []
+		let allContent = []
 		if (contents) this.content = this.content.concat(contents)
 		if (this.content.length > 0) {
 			let index = 0
-	        for (let i=0; i<this.content.length; i++) {
+ 			for (let i=0; i<contents.length; i++) {
+ 				let content = this.content[i]
+				if (content.indexOf('img src=') != -1) {
+					let tmp = document.createElement('div')
+					tmp.innerHTML = content
+					let src = tmp.querySelector('img').getAttribute('src')
+					imgs.push(src)
+				} 				
+ 			}
+
+	        for (let i=0; i<contents.length; i++) {
 	        	let content = this.content[i]
-	        	let wrapperBoxTmp = ``
-	            // Выделяем current колонки
 	            if (index % this.colCount == 0) {
 	                index = 0
 	            }
 
 				if (content.indexOf('img src=') != -1) {
-					let obj = {
-						content: '',
-						src: ''
-					}
-					var tmp = document.createElement('div')
+					let tmp = document.createElement('div')
 					tmp.innerHTML = content
-					var src = tmp.querySelector('img').getAttribute('src')
-					obj.content = content
-					obj.src = src
-					imgs.push(obj)
-				} else {
-					self._loadBox(index, content)
-				}
-	            index++
-	      	}
-	      	if (imgs.length > 0) {
-	      		let index = 0
-				for (let obj of imgs) {
-		            if (index % this.colCount == 0) {
-		                index = 0
-		            }
+					let src = tmp.querySelector('img').getAttribute('src')
 		            let currentCol = document.querySelector('#col-temp-' + index)
 					let img = new Image()
 					img.onload = function(e) {
 						let elem = document.createElement('div')
 						let spinner = document.createElement('div')
 						elem.setAttribute('class', 'grid-item')
-						elem.insertAdjacentHTML('beforeend', obj.content)
+						elem.insertAdjacentHTML('beforeend', content)
 						elem.insertAdjacentHTML('beforeend', `<div class="vg-loader"><div class="loader-grid"></div></div>`)
 						let result = currentCol.appendChild(elem)
 						result.setAttribute('ht', result.offsetHeight)
-						self._allImageLoaded(allImageArr, imgs, self.colCount)
+						self._allImageLoaded(allImageArr, allContent, imgs, contents, self.colCount, 'img')
 					}
-					img.src = obj.src
-					index++
-				}	      		
+					img.src = src
+				} else {
+					self._loadBox(index, content)
+					self._allImageLoaded(allImageArr, allContent, imgs, contents, self.colCount)
+				}
+	            index++
 	      	}
 		}
 	}
@@ -163,10 +166,9 @@ let fcGrid = function(parent, settings) {
         window.onresize = function(event) {
             clearTimeout(resizeGridTimer)
             resizeGridTimer = setTimeout(function(){
-				let elems = document.querySelector('.viking-grid')
-				elems.parentNode.removeChild(elems)
+				self.destroyGrid('resize')
 				self._creatGrid()
-				self.fillingGrid()
+				self.fillingGrid(self.content)
             }, 200)
         }
 	}
