@@ -35,12 +35,15 @@ let fcGrid = function(parent, settings) {
 		
 	}
 
-	this.destroyGrid = function(settings='user') {
+	this.destroyGrid = function(settings) {
 		let elems = document.querySelector('.viking-grid')
 		let elem = document.querySelector('.temp-grid')
 		elems.parentNode.removeChild(elems)
 		elem.parentNode.removeChild(elem)
-		if(settings == 'user') this._creatGrid()
+		if (settings != 'resize') {
+			this.content = []
+			this._creatGrid()
+		} 
 	}
 
 	this._loadBox = function(index, content) {
