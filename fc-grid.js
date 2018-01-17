@@ -84,12 +84,14 @@ let fcGrid = function(parent, settings) {
 	}
 
 	//grid filling
-	this.fillingGrid = function(contents) {
+	this.fillingGrid = function(contents, settings) {
 		let self = this
 		let imgs = []
 		let allImageArr = []
 		let allContent = []
-		if (contents) this.content = this.content.concat(contents)
+		if (settings != 'resize') {
+			this.content = this.content.concat(contents)
+		} 
 		if (this.content.length > 0) {
 			let index = 0
  			for (let i=0; i<contents.length; i++) {
@@ -168,7 +170,7 @@ let fcGrid = function(parent, settings) {
             resizeGridTimer = setTimeout(function(){
 				self.destroyGrid('resize')
 				self._creatGrid()
-				self.fillingGrid(self.content)
+				self.fillingGrid(self.content, 'resize')
             }, 200)
         }
 	}
