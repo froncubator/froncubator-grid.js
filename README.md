@@ -11,6 +11,8 @@ Cascading grid layout library - smooth and infinite
 
 # Examples
 ___
+[Examples on jsfiddle.net](https://jsfiddle.net/AlexyKar/h32wszcn/4/)
+___
 # Initialize
 ```javascript
 let parent = document.querySelector('.parent')
