@@ -34,6 +34,14 @@ window.onload = function() {
 
 	grid.fillingGrid(template)
 
+	let add = function() {
+        let position = document.documentElement.scrollTop
+        if (document.documentElement.offsetHeight === (position + window.innerHeight)) {
+            grid.fillingGrid(template)
+        }
+	}
+	window.addEventListener('scroll', add);
+
 	// setTimeout(() => {
 	// 	// grid.fillingGrid(template)
 	// 	grid.destroyGrid()
