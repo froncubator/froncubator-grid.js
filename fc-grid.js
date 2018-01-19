@@ -1,6 +1,6 @@
 
 console.log('grid run!')
- 
+let infiniteScroll = ''
 let fcGrid = function(parent, settings) {
 	if (typeof(settings) != "object") settings = {}
 	if (!settings.min) settings.min = 2
