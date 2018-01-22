@@ -34,13 +34,16 @@ window.onload = function() {
 
 	grid.fillingGrid(template)
 
+	let add = function() {
+	    let position = document.documentElement.scrollTop
+	    if (document.documentElement.offsetHeight === (position + window.innerHeight)) {
+	        grid.fillingGrid(template)
+	    }
+	}
+	window.addEventListener('scroll', add);
+
 	// setTimeout(() => {
 	// 	// grid.fillingGrid(template)
 	// 	grid.destroyGrid()
 	// }, 5000)
-
-	// setTimeout(() => {
-	// 	grid.fillingGrid(template)
-	// 	// grid.destroyGrid()
-	// }, 7000)
 }
