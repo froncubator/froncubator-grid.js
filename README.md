@@ -1,4 +1,4 @@
-# Viking-grid
+# Froncubator-grid
 
 Cascading grid layout library - smooth and infinite
 
@@ -16,7 +16,7 @@ ___
 # Initialize
 ```javascript
 let parent = document.querySelector('.parent')
-let grid = new fcGrid( parent)
+let grid = new fcGrid(parent)
 ```
 # Add in grid
 
@@ -29,6 +29,23 @@ grid.fillingGrid(template)
 
 ```javascript
 grid.destroyGrid()
+```
+
+# Froncubator Infinite Scroll
+
+If you want to make your grid infinite - [Froncubator Infinite Scroll](https://github.com/froncubator/froncubator-infinite-scroll.js) is good solution for you.
+
+For instalation this library to Froncubator-grid do these steps:
+1. Add [this file](https://github.com/froncubator/froncubator-infinite-scroll.js/blob/master/infinite-scroll.js) to HTML  template
+```html
+<script src="infinite-scroll.js"></script>
+```
+2. Initialize grid with Infinite Scroll
+```javascript
+let parent = document.querySelector('.parent')
+let grid = new fcGrid(parent, {
+	infinityScroll: true
+})
 ```
 
 ___
