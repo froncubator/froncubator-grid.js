@@ -1,6 +1,6 @@
 window.onload = function() {
 	let parent = document.querySelector('.parent')
-	let grid = new fcGrid( parent, {
+	let grid = new fcGrid(parent, {
 		infinityScroll: false
 	})
 
