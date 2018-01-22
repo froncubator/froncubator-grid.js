@@ -16,7 +16,7 @@ ___
 # Initialize
 ```javascript
 let parent = document.querySelector('.parent')
-let grid = new fcGrid( parent)
+let grid = new fcGrid(parent)
 ```
 # Add in grid
 
@@ -40,25 +40,12 @@ For instalation this library to Froncubator-grid do these steps:
 ```html
 <script src="infinite-scroll.js"></script>
 ```
-2. Change in [fc-grid.js](https://github.com/froncubator/froncubator-grid.js/blob/master/fc-grid.js) _resizeGrid function to
+2. Initialize grid with Infinite Scroll
 ```javascript
-this._resizeGrid = function() {
-        let resizeGridTimer = null
-        window.onresize = function(event) {
-            clearTimeout(resizeGridTimer)
-            resizeGridTimer = setTimeout(function(){
-				infiniteScroll.removeListener()
-				self.destroyGrid('resize')
-				self._creatGrid()
-				self.fillingGrid(self.content, 'resize')
-				infiniteScroll = new InfiniteScroll()
-            }, 200)
-        }
-	}
-```
-3. Start Infinite Scroll
-```javascript
-infiniteScroll = new InfiniteScroll()
+let parent = document.querySelector('.parent')
+let grid = new fcGrid(parent, {
+	infinityScroll: true
+})
 ```
 
 ___

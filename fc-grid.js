@@ -1,16 +1,25 @@
-
-console.log('grid run!')
-let infiniteScroll = ''
 let fcGrid = function(parent, settings) {
+	this.infiniteScroll = {}
 	if (typeof(settings) != "object") settings = {}
 	if (!settings.min) settings.min = 2
 	if (!settings.max) settings.max = 6
+	if (!settings.infinityScroll) {
+		settings.infinityScroll=false
+	} else {
+		try {
+			this.infiniteScroll = new InfiniteScroll()
+		} catch(err) {
+			console.log("ERROR: infinityScroll is not connected")
+			settings.infinityScroll=false
+		}
+	}
 	if (settings.min > settings.max) throw new Error('The maximum of the columns can not be less than the minimum')
 	this.parent = parent
 	this.minCols = settings.min
 	this.maxCols = settings.max
 	this.content = []
 	this.colCount = 0
+	this.infinityScroll = settings.infinityScroll
 
 	this._creatGrid = function() {
 		let parent = this.parent
@@ -46,6 +55,7 @@ let fcGrid = function(parent, settings) {
 		} 
 	}
 
+	//add in grid tempate without image
 	this._loadBox = function(index, content) {
 		let currentCol = document.querySelector('#col-temp-' + index)
 		let elem = document.createElement('div')
@@ -56,7 +66,7 @@ let fcGrid = function(parent, settings) {
 		let result = currentCol.appendChild(elem)
 		result.setAttribute('ht', result.offsetHeight)
 	}
-
+	//add in grid tempate with image
 	this._allImageLoaded = function(allImageArr, allContent, imgs, contents, colCount, check) {
 		if (check == 'img') {
 			allImageArr.push(1)
@@ -164,8 +174,9 @@ let fcGrid = function(parent, settings) {
 	    return obj
 	}
 
-	//rebuild the grid when changing the width of the screen
 	let self = this
+
+	//rebuild the grid when changing the width of the screen
 	this._resizeGrid = function() {
         let resizeGridTimer = null
         window.onresize = function(event) {
@@ -177,6 +188,27 @@ let fcGrid = function(parent, settings) {
             }, 200)
         }
 	}
-	this._resizeGrid()
+
+	//rebuild the grid when changing the width of the screen if connect infinity scroll
+	this._resizeGridWithScroll = function() {
+        let resizeGridTimer = null
+        window.onresize = function(event) {
+            clearTimeout(resizeGridTimer)
+            resizeGridTimer = setTimeout(function(){
+				self.infiniteScroll.removeListener()
+				self.destroyGrid('resize')
+				self._creatGrid()
+				self.fillingGrid(self.content, 'resize')
+				self.infiniteScroll = new InfiniteScroll()
+            }, 200)
+        }
+	}
+
+	if (this.infinityScroll) {
+		this._resizeGridWithScroll()
+	} else {
+		this._resizeGrid()
+	}
+
 	this._creatGrid()
 }

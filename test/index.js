@@ -1,8 +1,11 @@
 window.onload = function() {
 	let parent = document.querySelector('.parent')
-	let grid = new fcGrid( parent, {})
-	let template = []
+	let grid = new fcGrid( parent, {
+		infinityScroll: false
+	})
 
+	//just tempalte
+	let template = []
 	let img = ["http://static1.cooklook.ru/images/c9/c3/87/fb/t_c9c387fbb3a8e42bc3892da584064714c6113da5cbd1ea204c6acd6d38507c04.jpg", 
 		"http://static1.cooklook.ru/images/1a/38/f5/89/t_1a38f589c44cafd6773c0f6429513c42b6fe4a7d3d27267c41a3e49b9c5de717.jpg",
 		"http://static1.cooklook.ru/images/2a/91/40/fb/t_2a9140fb60d7eca5fb5582710d6f387b811b38662e00f908b23b93042b0abe49.jpg",
@@ -17,7 +20,6 @@ window.onload = function() {
 		"http://static1.cooklook.ru/images/9c/19/9b/48/t_9c199b4865920d7c308a45ca70bd5e36f613306a38ca767e1073f9355a07448d.jpg",
 		"http://static1.cooklook.ru/images/95/cd/de/2a/t_95cdde2ae14b00b37c7b9b8aeaac08ced572826f0a7389d4576fa0f0baed5604.jpg",
 		"http://static1.cooklook.ru/images/f9/f0/8e/ee/t_f9f08eee3a1d9993ca65e112f5681dfae6c6ab7e5160ffa5ae99f4e828b7868c.jpg"
-
 	]
 
 	let text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
@@ -31,9 +33,12 @@ window.onload = function() {
 		let tmp = `<p>${text}</p>`
 		template.push(tmp)
 	}
+	//-----------------------------------------------------------------------------------------------------------------------------
 
+	//add template in grid
 	grid.fillingGrid(template)
 
+	//check scroll for load new tempate
 	let add = function() {
         let position = document.documentElement.scrollTop
         if (document.documentElement.offsetHeight === (position + window.innerHeight)) {
@@ -43,12 +48,6 @@ window.onload = function() {
 	window.addEventListener('scroll', add);
 
 	// setTimeout(() => {
-	// 	// grid.fillingGrid(template)
 	// 	grid.destroyGrid()
-	// }, 5000)
-
-	// setTimeout(() => {
-	// 	grid.fillingGrid(template)
-	// 	// grid.destroyGrid()
 	// }, 7000)
 }
